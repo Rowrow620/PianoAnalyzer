@@ -1,37 +1,45 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="640" viewBox="0 0 1200 640" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="480" viewBox="0 0 960 480" role="img" aria-labelledby="title desc">
   <title id="title">Piano Analyzer architecture</title>
-  <desc id="desc">Recorded video and calibration feed independent MediaPipe video tracking and Transkun audio transcription. Evidence fusion preserves audio notes and marks visual support before MIDI, annotated video, and optional CSV output.</desc>
-  <defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8" fill="#64748b"/></marker></defs>
-  <rect width="1200" height="640" rx="16" fill="#f8fafc"/>
+  <desc id="desc">A calibrated recording feeds independent video tracking and audio transcription. Fusion retains audio notes and flags missing visual support. Outputs are MIDI, annotated video, and optional evidence CSV.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0L7 3.5L0 7" fill="#687587"/></marker>
+  </defs>
+  <rect width="960" height="480" rx="12" fill="#11151c"/>
+  <g fill="none" stroke="#687587" stroke-width="2" marker-end="url(#arrow)">
+    <path d="M480 108V132H260V156"/>
+    <path d="M480 108V132H700V156"/>
+    <path d="M260 234V260H480V284"/>
+    <path d="M700 234V260H480V284"/>
+    <path d="M480 362V386H180V408"/>
+    <path d="M480 362V408"/>
+    <path d="M480 362V386H780V408"/>
+  </g>
+  <g fill="#1b222c" stroke="#384352">
+    <rect x="320" y="36" width="320" height="72" rx="8"/>
+    <rect x="100" y="156" width="320" height="78" rx="8"/>
+    <rect x="540" y="156" width="320" height="78" rx="8"/>
+    <rect x="280" y="284" width="400" height="78" rx="8" fill="#1c2b36" stroke="#50788f"/>
+    <rect x="60" y="408" width="240" height="44" rx="8"/>
+    <rect x="360" y="408" width="240" height="44" rx="8"/>
+    <rect x="660" y="408" width="240" height="44" rx="8"/>
+  </g>
   <g font-family="Arial, Helvetica, sans-serif" text-anchor="middle">
-    <text x="600" y="45" font-size="24" font-weight="700" fill="#0f172a">Piano Analyzer</text>
-    <rect x="390" y="70" width="420" height="64" rx="10" fill="#0f172a"/>
-    <text x="600" y="97" font-size="18" font-weight="700" fill="white">Recorded video with piano audio</text>
-    <text x="600" y="120" font-size="15" fill="#cbd5e1">Manual C3-C7 keyboard calibration</text>
-    <g fill="none" stroke="#64748b" stroke-width="2.5" marker-end="url(#arrow)">
-      <path d="M600 134V158H290V185"/><path d="M600 134V158H910V185"/>
-      <path d="M290 304V334H600V360"/><path d="M910 304V334H600V360"/>
-      <path d="M600 450V480H230V515"/><path d="M600 450V515"/><path d="M600 450V480H970V515"/>
+    <g font-size="20" font-weight="600" fill="#e1e7ed">
+      <text x="480" y="65">Recording</text>
+      <text x="260" y="188">Hand tracking</text>
+      <text x="700" y="188">Audio transcription</text>
+      <text x="480" y="316">Evidence fusion</text>
     </g>
-    <rect x="80" y="185" width="420" height="119" rx="10" fill="white" stroke="#94a3b8"/>
-    <rect x="700" y="185" width="420" height="119" rx="10" fill="white" stroke="#94a3b8"/>
-    <text x="290" y="216" font-size="19" font-weight="700" fill="#0369a1">Video evidence</text>
-    <text x="290" y="245" font-size="17" fill="#0f172a">OpenCV and MediaPipe</text>
-    <text x="290" y="273" font-size="15" fill="#475569">Fingertips mapped to keyboard coordinates</text>
-    <text x="910" y="216" font-size="19" font-weight="700" fill="#0369a1">Audio transcription</text>
-    <text x="910" y="245" font-size="17" fill="#0f172a">Transkun and PyTorch</text>
-    <text x="910" y="273" font-size="15" fill="#475569">Estimated pitch, onset, ending, and velocity</text>
-    <text x="600" y="256" font-size="14" fill="#64748b">Independent</text>
-    <text x="600" y="278" font-size="14" fill="#64748b">analysis</text>
-    <rect x="320" y="360" width="560" height="90" rx="10" fill="#e0f2fe" stroke="#0284c7"/>
-    <text x="600" y="391" font-size="19" font-weight="700" fill="#0c4a6e">Evidence fusion</text>
-    <text x="600" y="420" font-size="16" fill="#0f172a">Preserve audio notes; flag missing visual support</text>
-    <g fill="white" stroke="#94a3b8">
-      <rect x="80" y="515" width="300" height="65" rx="10"/>
-      <rect x="450" y="515" width="300" height="65" rx="10"/>
-      <rect x="820" y="515" width="300" height="65" rx="10"/>
+    <g font-size="15" fill="#a7b2bf">
+      <text x="480" y="89">C3-C7 calibration</text>
+      <text x="260" y="213">OpenCV + MediaPipe</text>
+      <text x="700" y="213">Transkun + PyTorch</text>
+      <text x="480" y="341">Keep audio notes. Flag missing visual support.</text>
     </g>
-    <g font-size="17" font-weight="700" fill="#0f172a"><text x="230" y="553">MIDI performance</text><text x="600" y="553">Annotated video</text><text x="970" y="553">Evidence CSV</text></g>
-    <text x="600" y="615" font-size="14" fill="#475569">Visual support describes evidence; physical key releases and strike strength are not measured.</text>
+    <g font-size="16" fill="#d2dae3">
+      <text x="180" y="436">MIDI</text>
+      <text x="480" y="436">Annotated video</text>
+      <text x="780" y="436">Evidence CSV</text>
+    </g>
   </g>
 </svg>

@@ -65,7 +65,7 @@ The default path runs Transkun on CPU. The main application does not expose a GP
 
 Use a constant-frame-rate video containing piano audio. Keep the camera fixed, with the C3-C7 keyboard region and fingertips visible. The timestamp calculation uses frame index divided by the video-reported FPS; variable-frame-rate timing has not been validated.
 
-The first run should use `--calibrate`. Click the keyboard corners in the order shown by the application, then select the five C-key centers for C3 through C7. The saved coordinates apply to that camera position and frame size. See the [synthetic format example](../examples/README.md); its coordinates are not a calibration for your recording.
+The first run should use `--calibrate`. Click the keyboard corners in the order shown by the application, then select the five C-key centers for C3 through C7. The saved coordinates apply to that camera position and frame size. See the [synthetic format example](../examples/CALIBRATION.md); its coordinates are not a calibration for your recording.
 
 ```powershell
 .\.venv\Scripts\python.exe -m piano_analyzer --input "videos/performance.mp4" --calibration "calibration/performance/keyboard.json" --calibrate --output "results/performance" --save-evidence --show

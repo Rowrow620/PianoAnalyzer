@@ -11,7 +11,7 @@ Transcribe recorded piano performances using audio and visual evidence. Transkun
 [![Quick Start](https://img.shields.io/badge/Quick_Start-1F2937?style=for-the-badge)](#quick-start)
 [![Architecture](https://img.shields.io/badge/Architecture-1F2937?style=for-the-badge)](docs/architecture.md)
 [![Evaluation](https://img.shields.io/badge/Evaluation-1F2937?style=for-the-badge)](docs/evaluation.md)
-[![Original Report](https://img.shields.io/badge/Original_Report-1F2937?style=for-the-badge)](docs/reports/Piano_Analyzer_Public_Report.pdf)
+[![Report — Earlier Version](https://img.shields.io/badge/Report_%E2%80%94_Earlier_Version-1F2937?style=for-the-badge)](docs/reports/Piano_Analyzer_Public_Report.pdf)
 
 <a href="docs/examples.md"><img src="assets/examples/f-octaves.png" alt="Annotated piano recording with hand tracking and detected F4 and F5 notes" width="640"></a>
 
