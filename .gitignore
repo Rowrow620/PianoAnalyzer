@@ -1,0 +1,63 @@
+# Local Python environments and generated files
+.venv*/
+venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Recordings, models, calibration, and generated analysis remain local
+/videos/
+/pictures/
+/images/
+/models/
+/calibration/
+/results/
+/data/
+/references/
+
+# Keep private media and model weights out of Git, even outside those folders
+*.mov
+*.MOV
+*.mp4
+*.MP4
+*.avi
+*.mkv
+*.wav
+*.mp3
+*.flac
+*.mid
+*.midi
+*.task
+*.pt
+*.pth
+*.onnx
+*.safetensors
+
+# Only deliberately selected documentation images belong in assets/
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.webp
+!assets/**/*.png
+!assets/**/*.jpg
+!assets/**/*.jpeg
+!assets/**/*.gif
+!assets/**/*.webp
+
+# Machine settings and secrets
+.env
+.env.*
+!.env.example
+*.log
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+PianoAnalyzerExUnredacted/

@@ -1,0 +1,12 @@
+# Install only in .venv-transkun; keep it separate from MediaPipe.
+--extra-index-url https://download.pytorch.org/whl/cpu
+numpy==1.26.4
+torch==2.11.0+cpu
+torchaudio==2.11.0+cpu
+transkun==2.0.1
+pretty-midi==0.2.11.post0
+scipy==1.15.3
+soxr==1.1.0
+moduleconf==0.1.4
+ncls==0.0.70
+setuptools==79.0.1
