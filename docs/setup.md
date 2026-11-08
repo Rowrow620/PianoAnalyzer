@@ -2,14 +2,14 @@
 
 ## Environments
 
-Use Python 3.10. The core dependencies are declared in `pyproject.toml`; CPU audio-inference dependencies are pinned separately in `requirements-transkun.txt`.
+Use Python 3.10. The core dependencies are declared in `pyproject.toml`; CPU audio-inference dependencies are pinned separately in `requirements/transkun.txt`.
 
 | Environment | Purpose | Main dependencies |
 | --- | --- | --- |
 | `.venv` | Video tracking, calibration, MIDI, rendering, tests | MediaPipe 0.10.21, OpenCV 4.11.0.86, NumPy 1.26.4, pretty_midi, imageio-ffmpeg |
 | `.venv-transkun` | Audio-model inference | Transkun 2.0.1, PyTorch/torchaudio 2.11.0 CPU, SciPy, soxr, moduleconf |
 
-The audio wrapper resolves `.venv-transkun` relative to `piano_transkun.py`. Create both environments in the repository root and run the entry-point file from the checkout. The core editable install keeps the source modules and local model path together.
+Create both environments in the repository root. Install the core package with `pip install -e .` and launch it with `python -m piano_analyzer`. The source package resolves the local models, calibration, and audio environment from the checkout root.
 
 The setuptools pin retains compatibility with dependencies that use `pkg_resources`. Avoid combining these environments or upgrading individual pinned packages without checking the complete pipeline.
 
@@ -24,7 +24,7 @@ py -3.10 -m venv .venv
 
 py -3.10 -m venv .venv-transkun
 .\.venv-transkun\Scripts\python.exe -m pip install --upgrade pip
-.\.venv-transkun\Scripts\python.exe -m pip install -r requirements-transkun.txt
+.\.venv-transkun\Scripts\python.exe -m pip install -r requirements/transkun.txt
 
 .\.venv\Scripts\python.exe scripts/download_model.py
 .\.venv\Scripts\python.exe scripts/check_setup.py
@@ -44,7 +44,7 @@ python3.10 -m venv .venv
 
 python3.10 -m venv .venv-transkun
 .venv-transkun/bin/python -m pip install --upgrade pip
-.venv-transkun/bin/python -m pip install -r requirements-transkun.txt
+.venv-transkun/bin/python -m pip install -r requirements/transkun.txt
 
 .venv/bin/python scripts/download_model.py
 .venv/bin/python scripts/check_setup.py
@@ -68,7 +68,7 @@ Use a constant-frame-rate video containing piano audio. Keep the camera fixed, w
 The first run should use `--calibrate`. Click the keyboard corners in the order shown by the application, then select the five C-key centers for C3 through C7. The saved coordinates apply to that camera position and frame size. See the [synthetic format example](../examples/README.md); its coordinates are not a calibration for your recording.
 
 ```powershell
-.\.venv\Scripts\python.exe piano_handtracking.py --input "videos/performance.mp4" --calibration "calibration/performance/keyboard.json" --calibrate --output "results/performance" --save-evidence --show
+.\.venv\Scripts\python.exe -m piano_analyzer --input "videos/performance.mp4" --calibration "calibration/performance/keyboard.json" --calibrate --output "results/performance" --save-evidence --show
 ```
 
 With GNU Make installed, equivalent targets are available:

@@ -18,4 +18,4 @@
 
 ## Original implementation October 2026
 
-The original evaluated system used librosa onsets and FFT confirmation with visual candidates. It used placeholder note durations and fixed MIDI velocity. See [the original report](docs/reports/Piano_Analyzer_Public_Report.pdf) for its development measurements and limitations.
+The original evaluated system used librosa onsets and FFT confirmation with visual candidates. It used placeholder note durations and fixed MIDI velocity. See [the original report](reports/Piano_Analyzer_Public_Report.pdf) for its development measurements and limitations.

@@ -11,7 +11,7 @@ import json
 
 import cv2
 
-from piano_keyboard import KeyboardMap, note_name
+from .piano_keyboard import KeyboardMap, note_name
 
 
 def calibrate(frame, path, reset=False):

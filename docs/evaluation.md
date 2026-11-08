@@ -11,7 +11,7 @@ The 21 unit tests exercise evaluation matching, evidence fusion, note-ending des
 After processing a recording, compare its generated MIDI with a reference MIDI:
 
 ```powershell
-.\.venv\Scripts\python.exe piano_evaluate.py --results "results/performance" --reference "videos/performance.mid" --tolerance 0.10
+.\.venv\Scripts\python.exe -m piano_analyzer.piano_evaluate --results "results/performance" --reference "videos/performance.mid" --tolerance 0.10
 ```
 
 The evaluator requires the same pitch and an onset difference of at most the specified tolerance. It uses one-to-one maximum matching, so duplicate predictions cannot match the same reference note twice. A wrong pitch can count as both a false positive and a false negative.

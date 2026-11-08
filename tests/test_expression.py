@@ -4,8 +4,8 @@ from pathlib import Path
 from tempfile import TemporaryDirectory
 import unittest
 
-from piano_expression import describe_endings
-from piano_fusion import fuse_notes, save_evidence
+from piano_analyzer.piano_expression import describe_endings
+from piano_analyzer.piano_fusion import fuse_notes, save_evidence
 
 
 def note():

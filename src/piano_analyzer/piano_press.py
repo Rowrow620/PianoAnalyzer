@@ -1,7 +1,7 @@
 """Visual evidence only. Fingertip proximity is not proof of a physical
 key press or release. This module never reads audio.
 """
-from piano_keyboard import HEIGHT
+from .piano_keyboard import HEIGHT
 
 TIPS = {4: 'thumb', 8: 'index', 12: 'middle', 16: 'ring', 20: 'pinky'}
 

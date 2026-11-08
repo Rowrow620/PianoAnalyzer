@@ -3,7 +3,7 @@ from threading import Barrier
 import unittest
 from unittest.mock import patch
 
-from piano_handtracking import analyze_streams
+from piano_analyzer.piano_handtracking import analyze_streams
 
 
 class ThreadingTests(unittest.TestCase):
@@ -18,23 +18,23 @@ class ThreadingTests(unittest.TestCase):
             ready.wait()
             return ['notes']
 
-        with patch('piano_handtracking.track_video', side_effect=video), \
-             patch('piano_handtracking.transcribe_audio', side_effect=audio):
+        with patch('piano_analyzer.piano_handtracking.track_video', side_effect=video), \
+             patch('piano_analyzer.piano_handtracking.transcribe_audio', side_effect=audio):
             result = analyze_streams('video', 'audio', type('Keyboard', (), {'keys': {60: None}})())
         self.assertEqual(result, (['fingers'], ['landmarks'], 30, ['notes']))
 
     def test_sequential_mode_returns_the_same_outputs(self):
         keyboard = type('Keyboard', (), {'keys': {60: None}})()
-        with patch('piano_handtracking.track_video', return_value=([], [], 30)), \
-             patch('piano_handtracking.transcribe_audio', return_value=['notes']):
+        with patch('piano_analyzer.piano_handtracking.track_video', return_value=([], [], 30)), \
+             patch('piano_analyzer.piano_handtracking.transcribe_audio', return_value=['notes']):
             parallel = analyze_streams('video', 'audio', keyboard)
             sequential = analyze_streams('video', 'audio', keyboard, sequential=True)
         self.assertEqual(parallel, sequential)
 
     def test_audio_failure_reaches_caller(self):
         keyboard = type('Keyboard', (), {'keys': {60: None}})()
-        with patch('piano_handtracking.track_video', return_value=([], [], 30)), \
-             patch('piano_handtracking.transcribe_audio', side_effect=RuntimeError('audio failed')):
+        with patch('piano_analyzer.piano_handtracking.track_video', return_value=([], [], 30)), \
+             patch('piano_analyzer.piano_handtracking.transcribe_audio', side_effect=RuntimeError('audio failed')):
             with self.assertRaisesRegex(RuntimeError, 'audio failed'):
                 analyze_streams('video', 'audio', keyboard)
 

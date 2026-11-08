@@ -36,7 +36,7 @@ def main():
                         '-i', str(silent_video), '-i', str(audio), '-c:v', 'copy',
                         '-c:a', 'aac', '-shortest', str(video)], check=True)
         results = folder / 'output'
-        subprocess.run([sys.executable, str(ROOT / 'piano_handtracking.py'),
+        subprocess.run([sys.executable, '-m', 'piano_analyzer',
                         '--input', str(video), '--output', str(results),
                         '--calibration', str(ROOT / 'examples' / 'keyboard.example.json'),
                         '--save-evidence'], cwd=ROOT, check=True, timeout=240)

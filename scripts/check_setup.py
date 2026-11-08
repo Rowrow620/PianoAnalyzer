@@ -46,7 +46,7 @@ def main():
         executable = 'Scripts/python.exe' if os.name == 'nt' else 'bin/python'
         audio_python = ROOT / '.venv-transkun' / executable
         if not audio_python.is_file():
-            issues.append('Audio environment missing; create .venv-transkun and install requirements-transkun.txt.')
+            issues.append('Audio environment missing; create .venv-transkun and install requirements/transkun.txt.')
         else:
             probe = (
                 "from importlib.metadata import version; from importlib.resources import files; "

@@ -5,7 +5,7 @@ notes needing review. Missing hands do not veto an audible note.
 """
 import csv
 
-from piano_press import support_at
+from .piano_press import support_at
 
 
 def fuse_notes(audio_notes, frames):

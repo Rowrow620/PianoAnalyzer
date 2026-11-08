@@ -1,6 +1,6 @@
 import unittest
 
-from piano_evaluate import score_onsets
+from piano_analyzer.piano_evaluate import score_onsets
 
 
 class EvaluationTests(unittest.TestCase):

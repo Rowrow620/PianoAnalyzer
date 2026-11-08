@@ -44,18 +44,18 @@ import mediapipe as mp
 from mediapipe.tasks import python
 from mediapipe.tasks.python import vision
 
-from piano_calibration import calibrate
-from piano_notes import write_midi
-from piano_press import observe_fingers
-from piano_transkun import transcribe_audio
-from piano_fusion import fuse_notes, save_evidence
-from piano_expression import describe_endings
-from piano_sound import extract_audio, add_audio
-from piano_video import render_video
+from .piano_calibration import calibrate
+from .piano_notes import write_midi
+from .piano_press import observe_fingers
+from .piano_transkun import transcribe_audio
+from .piano_fusion import fuse_notes, save_evidence
+from .piano_expression import describe_endings
+from .piano_sound import extract_audio, add_audio
+from .piano_video import render_video
 
 def track_video(video, keyboard):
     # Track fingertips before drawing anything on the video
-    model = Path(__file__).parent / 'models' / 'gesture_recognizer.task'
+    model = Path(__file__).resolve().parents[2] / 'models' / 'gesture_recognizer.task'
     options = vision.GestureRecognizerOptions(
         base_options=python.BaseOptions(model_asset_path=str(model)),
         num_hands=2, running_mode=vision.RunningMode.VIDEO)
@@ -107,7 +107,7 @@ def main():
     parser.add_argument('--input', required=True, type=Path, help='Recorded video with piano audio')
     parser.add_argument('--output', required=True, type=Path, help='Output folder')
     parser.add_argument('--calibration', type=Path,
-                        default=Path(__file__).parent / 'calibration' / 'keyboard.json',
+                        default=Path(__file__).resolve().parents[2] / 'calibration' / 'keyboard.json',
                         help='Keyboard calibration JSON; use --calibrate to create it')
     parser.add_argument('--calibrate', action='store_true', help='Replace saved octave calibration')
     parser.add_argument('--show', action='store_true', help='Preview rendering; Q closes preview')

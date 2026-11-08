@@ -14,7 +14,7 @@ import pretty_midi
 
 
 def transcribe_audio(audio, pitches):
-    root = Path(__file__).parent
+    root = Path(__file__).resolve().parents[2]
     executable = 'Scripts/python.exe' if os.name == 'nt' else 'bin/python'
     python = root / '.venv-transkun' / executable
     midi = audio.parent / 'transkun.mid'

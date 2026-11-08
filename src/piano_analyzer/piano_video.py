@@ -12,8 +12,8 @@ https://developers.google.com/edge/mediapipe/solutions/vision/gesture_recognizer
 """
 import cv2
 
-from piano_keyboard import drawing_scale, note_name
-from piano_press import TIPS
+from .piano_keyboard import drawing_scale, note_name
+from .piano_press import TIPS
 
 
 # Hand landmark connections

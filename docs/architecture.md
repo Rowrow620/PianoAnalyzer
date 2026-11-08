@@ -37,3 +37,25 @@ Intermediate audio, model-output MIDI, and silent video are held in a temporary 
 ## Evaluation boundary
 
 The project evaluator measures exact pitch and onset agreement with one-to-one note matching. It does not score physical releases, velocity, fingertip localization, or finger assignment. The current architecture differs from the system evaluated in the [original report](reports/Piano_Analyzer_Public_Report.pdf).
+
+## Module reference
+
+Source modules are grouped under `src/piano_analyzer/`.
+
+```text
+piano_handtracking.py     CLI and parallel analysis coordination
+piano_calibration.py      Manual keyboard calibration
+piano_keyboard.py         Perspective transform and key geometry
+piano_press.py            Fingertip observations and support scoring
+piano_transkun.py         Isolated audio-model subprocess
+piano_fusion.py           Audio/video evidence and CSV output
+piano_expression.py       Visual observations near note endings
+piano_notes.py            MIDI export
+piano_video.py            Overlay rendering
+piano_sound.py            FFmpeg audio extraction and remuxing
+piano_evaluate.py         One-to-one pitch/onset evaluation
+tests/                   Unit tests
+scripts/                 Model download and environment checks
+docs/                    Setup, architecture, evaluation, and original report
+examples/                Synthetic calibration example
+```

@@ -1,6 +1,6 @@
 # Third party notices
 
-The root [MIT license](LICENSE) covers original project contributions. Third-party software, models, examples, and datasets retain their own copyright and license terms. Dependencies and pretrained weights are obtained separately; they are not vendored into this repository.
+The root [MIT license](../LICENSE) covers original project contributions. Third-party software, models, examples, and datasets retain their own copyright and license terms. Dependencies and pretrained weights are obtained separately; they are not vendored into this repository.
 
 ## Transkun
 
@@ -39,6 +39,6 @@ The local dataset notice identifies Creative Commons Attribution 4.0 terms. Data
 
 ## Development assistance and recordings
 
-ChatGPT assisted with calibration, audio processing, MIDI output, hand tracking, testing, and documentation. A pianist helped perform the original development recordings. Personal recordings, recording-specific calibration, and generated performance videos remain local.
+ChatGPT assisted with calibration, audio processing, MIDI output, hand tracking, testing, and documentation. A pianist helped perform the original development recordings. Raw recordings, recording-specific calibration, and generated performance videos remain local. Selected annotated screenshots are included in `assets/examples/`.
 
 The original report retains its diagrams, performance screenshots, and source acknowledgements. Its embedded images are part of the historical document; separate raw media are not bundled.

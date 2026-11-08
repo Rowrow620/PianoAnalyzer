@@ -7,7 +7,7 @@ from unittest.mock import patch
 
 import pretty_midi
 
-from piano_transkun import transcribe_audio
+from piano_analyzer.piano_transkun import transcribe_audio
 
 
 class TranskunTests(unittest.TestCase):
@@ -19,14 +19,14 @@ class TranskunTests(unittest.TestCase):
             midi.instruments.append(track)
             midi.write(command[command.index('--output')+1])
 
-        with TemporaryDirectory() as folder, patch('piano_transkun.subprocess.run', side_effect=model_output):
+        with TemporaryDirectory() as folder, patch('piano_analyzer.piano_transkun.subprocess.run', side_effect=model_output):
             notes = transcribe_audio(Path(folder) / 'audio.wav', {60})
         self.assertEqual(len(notes), 1)
         self.assertEqual((notes[0]['midi_pitch'], notes[0]['velocity'], notes[0]['end_seconds']), (60, 45, 2.))
         self.assertEqual(notes[0]['audio_source'], 'transkun')
 
     def test_model_failure_is_reported_instead_of_loading_stale_midi(self):
-        with TemporaryDirectory() as folder, patch('piano_transkun.subprocess.run',
+        with TemporaryDirectory() as folder, patch('piano_analyzer.piano_transkun.subprocess.run',
                 side_effect=subprocess.CalledProcessError(1, 'model')):
             with self.assertRaises(subprocess.CalledProcessError):
                 transcribe_audio(Path(folder) / 'audio.wav', {60})

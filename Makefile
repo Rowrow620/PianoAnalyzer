@@ -12,17 +12,17 @@ OUTPUT ?= results/c4_cmajor
 REFERENCE ?= videos/c4_cmajor/c4_cmajor.mid
 FLAGS ?=
 
-SOURCES = $(wildcard piano_*.py)
+SOURCES = $(wildcard src/piano_analyzer/*.py)
 
 .PHONY: check test run evaluate
 check:
 	"$(PYTHON)" -m py_compile $(SOURCES)
 
 run: check
-	"$(PYTHON)" piano_handtracking.py --input "$(INPUT)" --calibration "$(CALIBRATION)" --output "$(OUTPUT)" $(FLAGS)
+	"$(PYTHON)" -m piano_analyzer --input "$(INPUT)" --calibration "$(CALIBRATION)" --output "$(OUTPUT)" $(FLAGS)
 
 test:
 	"$(PYTHON)" -m unittest discover -s tests
 
 evaluate:
-	"$(PYTHON)" piano_evaluate.py --results "$(OUTPUT)" --reference "$(REFERENCE)"
+	"$(PYTHON)" -m piano_analyzer.piano_evaluate --results "$(OUTPUT)" --reference "$(REFERENCE)"

@@ -5,8 +5,8 @@ import unittest
 
 import pretty_midi
 
-from piano_fusion import fuse_notes
-from piano_notes import write_midi
+from piano_analyzer.piano_fusion import fuse_notes
+from piano_analyzer.piano_notes import write_midi
 
 
 def sound(pitch=60, start=1., end=1.6, velocity=82):

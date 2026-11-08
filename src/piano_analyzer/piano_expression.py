@@ -3,7 +3,7 @@
 Fingertip presence is not proof that a key is held. Missing tracking does
 not force a note to end. Velocity and endings come from Transkun.
 """
-from piano_press import support_at
+from .piano_press import support_at
 
 
 def describe_endings(notes, fingers):

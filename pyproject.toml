@@ -16,7 +16,5 @@ dependencies = [
     "imageio-ffmpeg==0.6.0", "setuptools==79.0.1",
 ]
 
-[tool.setuptools]
-py-modules = ["piano_handtracking", "piano_calibration", "piano_keyboard",
-              "piano_press", "piano_fusion", "piano_notes",
-              "piano_sound", "piano_video", "piano_evaluate", "piano_expression", "piano_transkun"]
+[tool.setuptools.packages.find]
+where = ["src"]
