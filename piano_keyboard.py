@@ -16,6 +16,12 @@ BLACK_NOTES = {1, 3, 6, 8, 10}
 NOTE_NAMES = ("C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B")
 
 
+def drawing_scale(frame):
+    """Keep overlays proportional to a 1280 by 720 reference frame."""
+    height, width = frame.shape[:2]
+    return max(.75, min(width / 1280, height / 720))
+
+
 def note_name(note):
     return f"{NOTE_NAMES[note % 12]}{note // 12 - 1}"
 
@@ -80,6 +86,8 @@ class KeyboardMap:
 
     def draw(self, frame, active_notes=(), uncertain_notes=()):
         # Draw calibrated keys
+        scale = drawing_scale(frame)
+        thickness = max(1, round(scale))
         for note, key in self.keys.items():
             if note in uncertain_notes:
                 color = (0, 165, 255)
@@ -89,8 +97,21 @@ class KeyboardMap:
                 color = (255, 170, 0)
             else:
                 color = (90, 90, 90)
-            cv2.polylines(frame, [key["polygon"]], True, color, 1)
+            cv2.polylines(frame, [key["polygon"]], True, color, thickness, cv2.LINE_AA)
             if not key["black"] or note in active_notes:
-                cv2.putText(frame, note_name(note), key["label"],
-                            cv2.FONT_HERSHEY_SIMPLEX,
-                            0.3, color, 1, cv2.LINE_AA)
+                text = note_name(note)
+                font_scale = .5 * scale
+                (text_width, _), _ = cv2.getTextSize(text, cv2.FONT_HERSHEY_SIMPLEX,
+                                                    font_scale, thickness)
+                key_width = np.linalg.norm(key['polygon'][2, 0] - key['polygon'][3, 0])
+                font_scale *= min(1., .86 * key_width / max(text_width, 1))
+                (text_width, text_height), _ = cv2.getTextSize(
+                    text, cv2.FONT_HERSHEY_SIMPLEX, font_scale, thickness)
+                x, y = key['label']
+                position = (max(2, min(frame.shape[1] - text_width - 2, x - text_width // 2)),
+                            max(text_height + 2, min(frame.shape[0] - 2, y)))
+                text_color = color if note in active_notes else (225, 225, 225)
+                cv2.putText(frame, text, position, cv2.FONT_HERSHEY_SIMPLEX,
+                            font_scale, (0, 0, 0), thickness + max(2, round(scale)), cv2.LINE_AA)
+                cv2.putText(frame, text, position, cv2.FONT_HERSHEY_SIMPLEX,
+                            font_scale, text_color, thickness, cv2.LINE_AA)

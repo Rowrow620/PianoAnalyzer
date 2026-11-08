@@ -12,7 +12,7 @@ https://developers.google.com/edge/mediapipe/solutions/vision/gesture_recognizer
 """
 import cv2
 
-from piano_keyboard import note_name
+from piano_keyboard import drawing_scale, note_name
 from piano_press import TIPS
 
 
@@ -27,12 +27,43 @@ CONNECTIONS = [
 # Highlight only the fingertips used for mapping notes.
 def annotate(frame, result):
     height, width = frame.shape[:2]
+    scale = drawing_scale(frame)
     for hand in result.hand_landmarks:
         points = [(int(point.x * width), int(point.y * height)) for point in hand]
         for a, b in CONNECTIONS:
-            cv2.line(frame, points[a], points[b], (0, 230, 0), 2)
+            cv2.line(frame, points[a], points[b], (0, 230, 0), max(1, round(2 * scale)), cv2.LINE_AA)
         for tip in TIPS:
-            cv2.circle(frame, points[tip], 4, (0, 220, 255), -1)
+            cv2.circle(frame, points[tip], max(2, round(4 * scale)), (0, 220, 255), -1, cv2.LINE_AA)
+
+
+def draw_note_summary(frame, active, uncertain):
+    scale = drawing_scale(frame)
+    margin, padding = round(16 * scale), round(10 * scale)
+    thickness = max(1, round(2 * scale))
+    label = 'Notes: ' + ', '.join(note_name(note) + ('?' if note in uncertain else '')
+                                 for note in sorted(active)) if active else 'No detected note'
+    font_scale = .9 * scale
+    (width, _), _ = cv2.getTextSize(label, cv2.FONT_HERSHEY_SIMPLEX, font_scale, thickness)
+    available = frame.shape[1] - 2 * (margin + padding)
+    font_scale *= min(1., available / max(width, 1))
+    (width, height), baseline = cv2.getTextSize(label, cv2.FONT_HERSHEY_SIMPLEX, font_scale, thickness)
+    legend_scale = .45 * scale
+    legend = '? Needs visual review' if uncertain else ''
+    (legend_width, legend_height), legend_baseline = cv2.getTextSize(
+        legend, cv2.FONT_HERSHEY_SIMPLEX, legend_scale, max(1, round(scale)))
+    panel_width = min(frame.shape[1] - margin, max(width, legend_width) + 2 * padding)
+    panel_height = height + baseline + 2 * padding
+    if legend:
+        panel_height += legend_height + legend_baseline + padding
+    region = frame[margin:margin + panel_height, margin:margin + panel_width]
+    region[:] = cv2.convertScaleAbs(region, alpha=.25)
+    position = (margin + padding, margin + padding + height)
+    cv2.putText(frame, label, position, cv2.FONT_HERSHEY_SIMPLEX,
+                font_scale, (245, 245, 245), thickness, cv2.LINE_AA)
+    if legend:
+        cv2.putText(frame, legend, (position[0], position[1] + baseline + padding + legend_height),
+                    cv2.FONT_HERSHEY_SIMPLEX, legend_scale, (0, 190, 255),
+                    max(1, round(scale)), cv2.LINE_AA)
 
 
 def render_video(video, output, keyboard, notes, hand_results, fps, show):
@@ -56,10 +87,7 @@ def render_video(video, output, keyboard, notes, hand_results, fps, show):
                          and note['start_seconds'] <= seconds < note['end_seconds']}
             keyboard.draw(frame, active, uncertain)
             annotate(frame, result)
-            label = ', '.join(note_name(note) + ('?' if note in uncertain else '')
-                              for note in sorted(active)) or 'No detected note'
-            cv2.putText(frame, label, (10, 25), cv2.FONT_HERSHEY_SIMPLEX,
-                        .5, (0, 220, 255), 1, cv2.LINE_AA)
+            draw_note_summary(frame, active, uncertain)
             # Save processed output
             writer.write(frame)
             if show:
